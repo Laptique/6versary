@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2E0F22">
+<title>Sáu Tháng ❤ Sechs Monate — Yên Nhi &amp; Seb</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,500&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --midnight:#2E0F22;
+    --plum:#7A2153;
+    --rose:#F6C2D4;
+    --magenta:#E8598F;
+    --gold:#F4C669;
+    --ivory:#FDF6EC;
+    --line: rgba(244,198,105,0.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--midnight);
+    color:var(--ivory);
+    font-family:'Be Vietnam Pro',system-ui,sans-serif;
+    font-weight:300;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,.display{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:500;
+    line-height:1.08;
+    margin:0;
+  }
+  .vi{
+    font-family:'Fraunces',Georgia,serif;
+    font-style:italic;
+    font-weight:500;
+    color:var(--gold);
+  }
+  p .vi, .body-vi{
+    font-family:'Be Vietnam Pro',sans-serif;
+    font-style:normal;
+    font-weight:400;
+    color:var(--rose);
+    display:block;
+    margin-top:.55em;
+  }
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:.6rem;
+    margin:1.1rem 0;
+    color:var(--gold);
+    opacity:.8;
+  }
+  .divider::before,.divider::after{
+    content:"";
+    height:1px;
+    width:28px;
+    background:var(--line);
+  }
+
+  #hearts-canvas{
+    position:fixed; inset:0; width:100%; height:100%;
+    z-index:0; pointer-events:none;
+  }
+
+  section, header, footer{ position:relative; z-index:1; }
+
+  /* ---------- Enter screen ---------- */
+  #enter-screen{
+    position:fixed; inset:0; z-index:20;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:2rem;
+    background:radial-gradient(ellipse at 50% 30%, var(--plum), var(--midnight) 70%);
+    transition:opacity 1s ease, visibility 1s ease;
+  }
+  #enter-screen.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+  .enter-heart{
+    font-size:2.6rem;
+    animation:beat 1.8s ease-in-out infinite;
+    margin-bottom:1.4rem;
+  }
+  @keyframes beat{
+    0%,100%{ transform:scale(1); }
+    25%{ transform:scale(1.18); }
+    40%{ transform:scale(0.96); }
+  }
+  #enter-screen h1{ font-size:clamp(1.6rem,6vw,2.4rem); color:var(--ivory); }
+  #enter-screen .vi{ font-size:clamp(1.2rem,4.6vw,1.7rem); display:block; margin-top:.3rem; }
+  #enter-btn{
+    margin-top:2.2rem;
+    background:transparent;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    font-family:'Be Vietnam Pro',sans-serif;
+    font-size:.95rem;
+    letter-spacing:.03em;
+    padding:.85rem 1.9rem;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background .35s ease, color .35s ease, transform .35s ease;
+  }
+  #enter-btn:hover, #enter-btn:focus-visible{
+    background:var(--gold); color:var(--midnight); transform:translateY(-2px);
+  }
+
+  main{
+    opacity:0;
+    transition:opacity 1.4s ease;
+  }
+  main.shown{ opacity:1; }
+
+  .wrap{
+    max-width:600px;
+    margin:0 auto;
+    padding:6vh 1.6rem;
+  }
+
+  /* ---------- Hero ---------- */
+  #hero{
+    min-height:100svh;
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:3rem 1.6rem;
+    background:linear-gradient(160deg,var(--midnight),var(--plum) 55%,var(--midnight));
+    background-size:200% 200%;
+    animation:driftGradient 18s ease infinite;
+  }
+  @keyframes driftGradient{
+    0%,100%{ background-position:0% 0%; }
+    50%{ background-position:100% 100%; }
+  }
+  .hero-eyebrow{ opacity:.8; font-size:.9rem; letter-spacing:.02em; margin-bottom:1.2rem; }
+  #hero h1{
+    font-size:clamp(2.6rem,11vw,4.2rem);
+    opacity:0; transform:translateY(18px);
+  }
+  #hero .vi.hero-vi{
+    font-size:clamp(1.7rem,7vw,2.6rem);
+    display:block; margin-top:.2rem;
+    opacity:0; transform:translateY(18px);
+  }
+  .names{
+    margin-top:1.6rem; font-size:1.05rem; color:var(--rose);
+    opacity:0; transform:translateY(18px);
+  }
+  .hero-date{
+    margin-top:.3rem; font-size:.85rem; color:var(--ivory); opacity:.6;
+  }
+  .reveal-1{ animation:fadeUp .9s ease .15s forwards; }
+  .reveal-2{ animation:fadeUp .9s ease .5s forwards; }
+  .reveal-3{ animation:fadeUp .9s ease .85s forwards; }
+  @keyframes fadeUp{ to{ opacity:1; transform:translateY(0); } }
+
+  #counter{
+    margin-top:2.6rem;
+    display:flex; gap:1.4rem; justify-content:center; flex-wrap:wrap;
+    opacity:0; transform:translateY(18px);
+    animation:fadeUp .9s ease 1.15s forwards;
+  }
+  .cbox{ min-width:60px; }
+  .cbox .num{
+    font-family:'Fraunces',serif; font-size:clamp(1.6rem,6vw,2.1rem);
+    color:var(--gold); font-variant-numeric:tabular-nums;
+  }
+  .cbox .lbl{ font-size:.68rem; margin-top:.2rem; opacity:.8; }
+  .cbox .lbl .vi{ font-size:.66rem; }
+  .counter-caption{ margin-top:1rem; font-size:.85rem; opacity:.75; }
+
+  /* ---------- Letter ---------- */
+  #letter{ padding:9vh 1.6rem; }
+  #letter p{ font-size:1.02rem; line-height:1.75; margin:0 0 1.3rem; }
+  .signature{ margin-top:1.6rem; font-family:'Fraunces',serif; font-style:italic; font-size:1.1rem; color:var(--gold); }
+
+  /* ---------- Timeline ---------- */
+  #timeline{ padding:9vh 1.6rem; }
+  #timeline h2{ font-size:clamp(1.7rem,6vw,2.2rem); text-align:center; }
+  #timeline h2 .vi{ display:block; font-size:.72em; margin-top:.25rem; }
+  .tl{ margin-top:3rem; position:relative; padding-left:1.7rem; }
+  .tl::before{
+    content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px;
+    background:linear-gradient(var(--line),var(--line));
+  }
+  .tl-item{
+    position:relative; padding-bottom:2.4rem; opacity:0; transform:translateX(-10px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .tl-item.in-view{ opacity:1; transform:translateX(0); }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:""; position:absolute; left:-1.7rem; top:.35rem;
+    width:11px; height:11px; border-radius:50%;
+    background:var(--gold); box-shadow:0 0 0 4px rgba(244,198,105,.18);
+  }
+  .tl-month{ font-size:.78rem; color:var(--gold); opacity:.9; }
+  .tl-title{ font-family:'Fraunces',serif; font-size:1.2rem; margin-top:.15rem; }
+  .tl-item p{ margin:.5rem 0 0; font-size:.94rem; line-height:1.6; opacity:.9; }
+  .tl-item .vi{ font-size:.92rem; }
+
+  /* ---------- Lanterns (reasons) ---------- */
+  #lanterns{ padding:9vh 1.6rem; text-align:center; }
+  #lanterns h2{ font-size:clamp(1.7rem,6vw,2.2rem); }
+  #lanterns h2 .vi{ display:block; font-size:.72em; margin-top:.25rem; }
+  .lantern-hint{ font-size:.82rem; opacity:.65; margin-top:.6rem; }
+  .lanterns-grid{
+    margin-top:2.6rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:1.1rem;
+  }
+  .lantern-card{
+    perspective:1000px; height:170px; cursor:pointer;
+  }
+  .lantern-inner{
+    position:relative; width:100%; height:100%; text-align:center;
+    transition:transform .7s cubic-bezier(.2,.8,.2,1);
+    transform-style:preserve-3d;
+  }
+  .lantern-card.flipped .lantern-inner{ transform:rotateY(180deg); }
+  .lantern-face{
+    position:absolute; inset:0; backface-visibility:hidden;
+    display:flex; align-items:center; justify-content:center;
+    padding:1.1rem; border-radius:20px 20px 26px 26px;
+    font-size:.92rem; line-height:1.4;
+  }
+  .lantern-front{
+    background:linear-gradient(160deg,var(--plum),var(--midnight));
+    border:1px solid var(--line); color:var(--ivory);
+  }
+  .lantern-back{
+    background:linear-gradient(160deg,var(--gold),#e0a23f);
+    color:var(--midnight); transform:rotateY(180deg); font-style:italic;
+    font-family:'Fraunces',serif; font-weight:500;
+  }
+
+  /* ---------- Closing ---------- */
+  #closing{
+    padding:11vh 1.6rem 8vh; text-align:center;
+    background:radial-gradient(ellipse at 50% 20%,var(--plum),var(--midnight) 75%);
+  }
+  #closing h2{ font-size:clamp(2rem,8vw,2.8rem); }
+  #closing h2 .vi{ display:block; font-size:.78em; margin-top:.2rem; }
+  #closing p{ max-width:440px; margin:1.4rem auto 0; font-size:1rem; line-height:1.7; opacity:.9; }
+  #burst-btn{
+    margin-top:2.6rem; background:none; border:none; cursor:pointer;
+    font-size:2.4rem; line-height:1; position:relative;
+    animation:beat 2.4s ease-in-out infinite;
+  }
+  .burst-heart{
+    position:fixed; z-index:30; pointer-events:none; font-size:1.3rem;
+    animation:fly 1.6s ease-out forwards;
+  }
+  @keyframes fly{
+    to{ transform:translate(var(--dx),var(--dy)) scale(.4) rotate(var(--rot)); opacity:0; }
+  }
+
+  footer{ text-align:center; padding:3rem 1.6rem 4rem; font-size:.78rem; opacity:.55; }
+  footer .vi{ display:block; margin-top:.2rem; font-size:.95em; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="hearts-canvas"></canvas>
+
+<div id="enter-screen">
+  <div class="enter-heart">❤</div>
+  <h1>Für dich, Yên Nhi<span class="vi">Dành tặng em, Yên Nhi</span></h1>
+  <button id="enter-btn">Beginnen <span class="vi" style="font-size:.85em;">✦ Bắt đầu</span></button>
+</div>
+
+<main id="site">
+
+  <section id="hero">
+    <div class="hero-eyebrow">24. September 2026</div>
+    <h1 class="reveal-1">Sechs Monate</h1>
+    <span class="vi hero-vi reveal-2">Sáu Tháng Bên Nhau</span>
+    <div class="names reveal-3">Yên Nhi &amp; Seb</div>
+
+    <div id="counter">
+      <div class="cbox"><div class="num" id="c-days">0</div><div class="lbl">Tage<span class="vi">Ngày</span></div></div>
+      <div class="cbox"><div class="num" id="c-hours">0</div><div class="lbl">Stunden<span class="vi">Giờ</span></div></div>
+      <div class="cbox"><div class="num" id="c-mins">0</div><div class="lbl">Minuten<span class="vi">Phút</span></div></div>
+      <div class="cbox"><div class="num" id="c-secs">0</div><div class="lbl">Sekunden<span class="vi">Giây</span></div></div>
+    </div>
+    <div class="counter-caption">Zusammen seit / Bên nhau được</div>
+  </section>
+
+  <section id="letter">
+    <div class="wrap">
+      <div class="divider">❤</div>
+      <p>Yên Nhi,<br>
+      sechs Monate. Für manche ist das nur eine Zahl auf dem Kalender – für mich sind es sechs Monate voller leiser kleiner Wunder: dein Lachen am Frühstückstisch, deine Stimme, wenn du mir am Telefon von deinem Tag erzählst, die Ruhe, die einkehrt, sobald du nach Hause kommst.
+      <span class="vi body-vi">Yên Nhi à, sáu tháng. Với một số người, đó chỉ là một con số trên lịch. Nhưng với anh, đó là sáu tháng đầy những điều nhỏ bé và kỳ diệu: nụ cười của em vào bữa sáng, giọng nói của em khi kể cho anh nghe về một ngày của em, và sự bình yên mỗi khi em trở về nhà.</span>
+      </p>
+      <p>Du hast mir eine Sprache geschenkt, die ich vorher nicht kannte – nicht nur Vietnamesisch, sondern eine Art, die Welt mit mehr Geduld und mehr Herz zu sehen. Jedes Wort, das ich lerne, ist auch ein kleines Stück von dir.
+      <span class="vi body-vi">Em đã tặng anh một ngôn ngữ mà trước đây anh chưa từng biết — không chỉ là tiếng Việt, mà còn là một cách nhìn thế giới với nhiều kiên nhẫn và yêu thương hơn. Mỗi từ anh học được cũng là một phần nhỏ của em.</span>
+      </p>
+      <p>Danke, dass du deine Welt mit mir teilst – deine Familie, deine Sprache, unser Zuhause. Ich freue mich auf jeden weiteren Monat, jedes weitere Jahr, jede Version von "uns", die noch kommt.
+      <span class="vi body-vi">Cảm ơn em đã chia sẻ thế giới của em với anh — gia đình em, ngôn ngữ em, và ngôi nhà của chúng ta. Anh mong chờ từng tháng tiếp theo, từng năm tiếp theo, và mọi phiên bản của "chúng ta" còn ở phía trước.</span>
+      </p>
+      <p class="signature">Ich liebe dich. <span class="vi" style="display:inline;">Anh yêu em.</span></p>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <h2>Unsere ersten sechs Monate<span class="vi">Sáu tháng đầu của chúng ta</span></h2>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-month">Monat 1</div>
+        <div class="tl-title">Der Anfang</div>
+        <p>Aus zwei Fremden wurde langsam ein "wir".<span class="vi body-vi">Từ hai người xa lạ, dần dần trở thành "chúng ta".</span></p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Monat 2</div>
+        <div class="tl-title">Zusammengezogen</div>
+        <p>Aus zwei Wohnungen wurde ein Zuhause.<span class="vi body-vi">Từ hai căn nhà, trở thành một mái ấm chung.</span></p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Monat 3</div>
+        <div class="tl-title">Anh học tiếng Việt</div>
+        <p>Ich habe angefangen, Vietnamesisch zu lernen – für dich, für uns.<span class="vi body-vi">Anh bắt đầu học tiếng Việt — vì em, vì chúng ta.</span></p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Monat 4</div>
+        <div class="tl-title">Deine Familie</div>
+        <p>Deine Familie hat mich mit so viel Wärme aufgenommen.<span class="vi body-vi">Gia đình em đã đón nhận anh bằng cả sự ấm áp.</span></p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Monat 5</div>
+        <div class="tl-title">Der ganz normale Alltag</div>
+        <p>Kein Fest, kein besonderer Tag – einfach du und ich, und trotzdem alles.<span class="vi body-vi">Không lễ, không dịp đặc biệt — chỉ là em và anh, vậy mà là tất cả.</span></p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-month">Monat 6</div>
+        <div class="tl-title">Heute</div>
+        <p>Und heute feiern wir – mit allem, was noch kommt.<span class="vi body-vi">Và hôm nay chúng ta ăn mừng — cùng tất cả những gì còn ở phía trước.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="lanterns">
+    <h2>Sechs Gründe, dich zu lieben<span class="vi">Sáu lý do để yêu em</span></h2>
+    <div class="lantern-hint">Zum Übersetzen tippen · Chạm để dịch</div>
+    <div class="lanterns-grid">
+      <div class="lantern-card"><div class="lantern-inner">
+        <div class="lantern-face lantern-front">Weil du geduldig bist, wenn ich Vietnamesisch übe und alles falsch ausspreche.</div>
+        <div class="lantern-face lantern-back">Vì em kiên nhẫn mỗi khi anh tập nói tiếng Việt và phát âm sai tùm lum.</div>
+      </div></div>
+      <div class="lantern-card"><div class="lantern-inner">
+        <div class="lantern-face lantern-front">Weil du aus jedem Ort ein Zuhause machst.</div>
+        <div class="lantern-face lantern-back">Vì em biến bất kỳ nơi nào cũng thành nhà.</div>
+      </div></div>
+      <div class="lantern-card"><div class="lantern-inner">
+        <div class="lantern-face lantern-front">Weil dein Lachen das Beste an meinem Tag ist.</div>
+        <div class="lantern-face lantern-back">Vì nụ cười của em là điều tuyệt nhất trong ngày của anh.</div>
+      </div></div>
+      <div class="lantern-card"><div class="lantern-inner">
+        <div class="lantern-face lantern-front">Weil du mir eine ganz neue Welt gezeigt hast.</div>
+        <div class="lantern-face lantern-back">Vì em đã cho anh thấy một thế giới hoàn toàn mới.</div>
+      </div></div>
+      <div class="lantern-card"><div class="lantern-inner">
+        <div class="lantern-face lantern-front">Weil du an mich glaubst, auch wenn ich es selbst nicht tue.</div>
+        <div class="lantern-face lantern-back">Vì em luôn tin anh, ngay cả khi anh không tin chính mình.</div>
+      </div></div>
+      <div class="lantern-card"><div class="lantern-inner">
+        <div class="lantern-face lantern-front">Weil sich "wir" einfach richtig anfühlt.</div>
+        <div class="lantern-face lantern-back">Vì hai chữ "chúng ta" luôn cảm thấy đúng đắn.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <section id="closing">
+    <h2>Auf uns<span class="vi">Vì chúng ta</span></h2>
+    <p>Sechs Monate sind nur der Anfang. Ich bin gespannt auf jeden Monat, der noch kommt.
+    <span class="vi body-vi">Sáu tháng chỉ mới là khởi đầu. Anh mong chờ từng tháng tiếp theo sẽ đến.</span></p>
+    <button id="burst-btn" aria-label="Herzen senden">❤</button>
+  </section>
+
+  <footer>
+    Für Yên Nhi, mit Liebe von Seb — 24.09.2026
+    <span class="vi">Dành cho Yên Nhi, với tình yêu từ Seb</span>
+  </footer>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- floating hearts canvas ---- */
+  var canvas = document.getElementById('hearts-canvas');
+  var ctx = canvas.getContext('2d');
+  var W, H, particles = [];
+  function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize); resize();
+
+  function makeParticle(){
+    return {
+      x: Math.random()*W,
+      y: H + 20 + Math.random()*100,
+      size: 8 + Math.random()*16,
+      speed: 0.25 + Math.random()*0.5,
+      drift: (Math.random()-0.5)*0.4,
+      sway: Math.random()*Math.PI*2,
+      opacity: 0.08 + Math.random()*0.18,
+      color: Math.random() > 0.5 ? '244,198,105' : '246,194,212'
+    };
+  }
+  var particleCount = reduceMotion ? 0 : 26;
+  for (var i=0;i<particleCount;i++){
+    var p = makeParticle();
+    p.y = Math.random()*H;
+    particles.push(p);
+  }
+  function drawHeart(x,y,size,opacity,color){
+    ctx.save();
+    ctx.translate(x,y);
+    ctx.scale(size/16, size/16);
+    ctx.beginPath();
+    ctx.moveTo(0,4);
+    ctx.bezierCurveTo(0,-2,-8,-2,-8,4);
+    ctx.bezierCurveTo(-8,10,0,14,0,18);
+    ctx.bezierCurveTo(0,14,8,10,8,4);
+    ctx.bezierCurveTo(8,-2,0,-2,0,4);
+    ctx.fillStyle = 'rgba('+color+','+opacity+')';
+    ctx.fill();
+    ctx.restore();
+  }
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    for (var i=0;i<particles.length;i++){
+      var p = particles[i];
+      p.y -= p.speed;
+      p.sway += 0.01;
+      p.x += Math.sin(p.sway)*p.drift;
+      if (p.y < -30){ Object.assign(p, makeParticle()); }
+      drawHeart(p.x, p.y, p.size, p.opacity, p.color);
+    }
+    if (!reduceMotion) requestAnimationFrame(tick);
+  }
+  if (!reduceMotion) requestAnimationFrame(tick);
+  else ctx.clearRect(0,0,W,H);
+
+  /* ---- enter screen ---- */
+  var enterScreen = document.getElementById('enter-screen');
+  var site = document.getElementById('site');
+  document.getElementById('enter-btn').addEventListener('click', function(){
+    enterScreen.classList.add('hidden');
+    site.removeAttribute('hidden');
+    requestAnimationFrame(function(){ site.classList.add('shown'); });
+    startCounter();
+  });
+
+  /* ---- live counter ----
+     Passt das Datum unten an, falls euer erstes gemeinsames Datum
+     an einem anderen Tag war. */
+  var startDate = new Date(2026, 2, 24, 0, 0, 0);
+  var counterStarted = false;
+  function startCounter(){
+    if (counterStarted) return;
+    counterStarted = true;
+    function update(){
+      var diff = Date.now() - startDate.getTime();
+      if (diff < 0) diff = 0;
+      var days = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var mins = Math.floor((diff % 3600000) / 60000);
+      var secs = Math.floor((diff % 60000) / 1000);
+      document.getElementById('c-days').textContent = days;
+      document.getElementById('c-hours').textContent = String(hours).padStart(2,'0');
+      document.getElementById('c-mins').textContent = String(mins).padStart(2,'0');
+      document.getElementById('c-secs').textContent = String(secs).padStart(2,'0');
+    }
+    update();
+    setInterval(update, 1000);
+  }
+
+  /* ---- timeline reveal ---- */
+  var tlItems = document.querySelectorAll('.tl-item');
+  if ('IntersectionObserver' in window && !reduceMotion){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) e.target.classList.add('in-view');
+      });
+    }, { threshold: 0.35 });
+    tlItems.forEach(function(el){ obs.observe(el); });
+  } else {
+    tlItems.forEach(function(el){ el.classList.add('in-view'); });
+  }
+
+  /* ---- lantern flip cards ---- */
+  document.querySelectorAll('.lantern-card').forEach(function(card){
+    card.addEventListener('click', function(){ card.classList.toggle('flipped'); });
+  });
+
+  /* ---- burst button ---- */
+  document.getElementById('burst-btn').addEventListener('click', function(e){
+    var count = 14;
+    var rect = e.target.getBoundingClientRect();
+    var cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
+    for (var i=0;i<count;i++){
+      var h = document.createElement('div');
+      h.className = 'burst-heart';
+      h.textContent = '❤';
+      var angle = Math.random()*Math.PI*2;
+      var dist = 80 + Math.random()*140;
+      h.style.left = cx+'px';
+      h.style.top = cy+'px';
+      h.style.setProperty('--dx', Math.cos(angle)*dist+'px');
+      h.style.setProperty('--dy', (Math.sin(angle)*dist - 40)+'px');
+      h.style.setProperty('--rot', (Math.random()*360)+'deg');
+      h.style.color = Math.random()>0.5 ? '#F4C669' : '#F6C2D4';
+      document.body.appendChild(h);
+      (function(el){ setTimeout(function(){ el.remove(); }, 1700); })(h);
+    }
+  });
+})();
+</script>
+</body>
+</html>
